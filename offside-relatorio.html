@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offside — Relatório de Marketing Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1D35;
+  --navy2: #142847;
+  --blue: #1A5CFF;
+  --blue-light: #4D80FF;
+  --cyan: #00D4FF;
+  --green: #00E5A0;
+  --red: #FF4057;
+  --amber: #FFB800;
+  --white: #F5F7FF;
+  --gray: #8A9BB5;
+  --border: rgba(255,255,255,0.08);
+  --card: rgba(255,255,255,0.04);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%, rgba(26,92,255,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(0,212,255,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(0,229,160,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ── GRID LINES ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(11,29,53,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+.nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: -0.5px; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--cyan); }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { color: var(--gray); font-size: 13px; text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--white); }
+.nav-badge { background: rgba(26,92,255,0.2); border: 1px solid rgba(26,92,255,0.4); color: var(--blue-light); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+
+/* ── HERO ── */
+.hero { padding: 160px 0 100px; }
+.hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.eyebrow-line { width: 32px; height: 2px; background: var(--cyan); }
+.eyebrow-text { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); }
+.hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(42px, 7vw, 82px); font-weight: 800; line-height: 1.0; letter-spacing: -2px; margin-bottom: 20px; }
+.hero h1 .line2 { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.25); }
+.hero h1 .accent { color: var(--cyan); }
+.hero-sub { font-size: 17px; color: var(--gray); max-width: 520px; margin-bottom: 48px; line-height: 1.7; }
+.hero-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+.hero-meta-item { }
+.hero-meta-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 2px; }
+.hero-meta-value { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: var(--white); }
+
+/* ── SECTION ── */
+section { padding: 80px 0; }
+.section-header { margin-bottom: 48px; }
+.section-num { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 8px; font-weight: 500; }
+.section-title { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 38px); font-weight: 700; letter-spacing: -0.5px; line-height: 1.15; }
+.section-desc { color: var(--gray); margin-top: 12px; max-width: 600px; font-size: 15px; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* ── STAT CARDS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 48px; }
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.stat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  opacity: 0;
+  transition: opacity .3s;
+}
+.stat-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-3px); }
+.stat-card:hover::before { opacity: 1; }
+.stat-card.good::before { background: linear-gradient(90deg, var(--green), var(--cyan)); opacity: 1; }
+.stat-card.bad::before { background: linear-gradient(90deg, var(--red), var(--amber)); opacity: 1; }
+.stat-card.warn::before { background: linear-gradient(90deg, var(--amber), #FF8C00); opacity: 1; }
+.stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 10px; }
+.stat-value { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+.stat-value.good { color: var(--green); }
+.stat-value.bad { color: var(--red); }
+.stat-value.warn { color: var(--amber); }
+.stat-sub { font-size: 12px; color: var(--gray); margin-top: 6px; }
+
+/* ── METRICS EXPLANATION ── */
+.metric-explain { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+.explain-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+.explain-tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; background: rgba(26,92,255,0.2); color: var(--blue-light); border: 1px solid rgba(26,92,255,0.3); padding: 3px 10px; border-radius: 20px; margin-bottom: 14px; }
+.explain-card h3 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+.explain-card p { color: var(--gray); font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+.explain-verdict { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 10px; }
+.explain-verdict.good { background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2); }
+.explain-verdict.warn { background: rgba(255,184,0,0.1); border: 1px solid rgba(255,184,0,0.2); }
+.verdict-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.good .verdict-dot { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.warn .verdict-dot { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+.verdict-text { font-size: 13px; font-weight: 500; }
+.good .verdict-text { color: var(--green); }
+.warn .verdict-text { color: var(--amber); }
+
+/* ── BENCHMARK TABLE ── */
+.bench-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+.bench-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); font-weight: 500; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+.bench-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.bench-table tr.highlight td { background: rgba(0,229,160,0.06); }
+.tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; }
+.tag-good { background: rgba(0,229,160,0.15); color: var(--green); }
+.tag-warn { background: rgba(255,184,0,0.15); color: var(--amber); }
+.tag-bad { background: rgba(255,64,87,0.15); color: var(--red); }
+.tag-blue { background: rgba(26,92,255,0.15); color: var(--blue-light); }
+.tag-now { background: rgba(0,212,255,0.15); color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); }
+
+/* ── FUNNEL ── */
+.funnel { display: flex; flex-direction: column; gap: 0; max-width: 700px; margin: 0 auto; }
+.funnel-step { position: relative; }
+.funnel-bar-row { display: flex; align-items: center; gap: 16px; margin-bottom: 6px; }
+.funnel-label-col { width: 200px; flex-shrink: 0; font-size: 13px; color: var(--gray); text-align: right; }
+.funnel-bar-col { flex: 1; }
+.funnel-bar-bg { background: rgba(255,255,255,0.06); border-radius: 6px; height: 38px; overflow: hidden; }
+.funnel-bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding: 0 14px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+.funnel-bar-fill span { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.funnel-drop { width: 80px; flex-shrink: 0; font-size: 12px; color: var(--gray); }
+.funnel-drop.bad { color: var(--red); font-weight: 600; }
+.funnel-connector { width: 200px; margin-left: auto; display: flex; justify-content: flex-end; padding-right: 96px; margin-bottom: 6px; }
+.connector-line { width: 2px; height: 20px; background: var(--border); }
+
+/* ── CHECKOUT PROBLEM ── */
+.problem-box {
+  background: rgba(255,64,87,0.06);
+  border: 1px solid rgba(255,64,87,0.25);
+  border-radius: 20px;
+  padding: 36px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.problem-box::before {
+  content: '!';
+  position: absolute; top: -20px; right: 24px;
+  font-family: 'Syne', sans-serif; font-size: 120px; font-weight: 800;
+  color: rgba(255,64,87,0.06); line-height: 1;
+}
+.problem-box h3 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--red); margin-bottom: 14px; }
+.problem-box p { color: rgba(245,247,255,0.8); font-size: 15px; line-height: 1.7; }
+.price-compare { display: flex; align-items: center; gap: 20px; margin: 24px 0; flex-wrap: wrap; }
+.price-box { background: rgba(255,255,255,0.05); border-radius: 14px; padding: 20px 28px; text-align: center; flex: 1; min-width: 140px; }
+.price-box.before { border: 1px solid rgba(255,255,255,0.1); }
+.price-box.after { border: 1px solid rgba(255,64,87,0.3); background: rgba(255,64,87,0.08); }
+.price-box.fixed { border: 1px solid rgba(0,229,160,0.3); background: rgba(0,229,160,0.06); }
+.price-box-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 8px; }
+.price-box-value { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; letter-spacing: -1px; }
+.price-box.before .price-box-value { color: var(--white); }
+.price-box.after .price-box-value { color: var(--red); }
+.price-box.fixed .price-box-value { color: var(--green); }
+.price-arrow { font-size: 28px; color: var(--gray); }
+.solution-box {
+  background: rgba(0,229,160,0.06);
+  border: 1px solid rgba(0,229,160,0.2);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 32px;
+}
+.solution-box h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--green); margin-bottom: 12px; }
+.solution-box p { color: rgba(245,247,255,0.8); font-size: 14px; line-height: 1.7; }
+
+/* ── CREATIVE FORMATS ── */
+.formats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 40px; }
+.format-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px;
+  transition: border-color .3s, transform .3s;
+  position: relative;
+  overflow: hidden;
+}
+.format-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-4px); }
+.format-num { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; color: rgba(255,255,255,0.04); position: absolute; top: 10px; right: 16px; line-height: 1; }
+.format-icon { font-size: 28px; margin-bottom: 14px; }
+.format-card h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.format-card p { font-size: 13px; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
+.format-tips { list-style: none; }
+.format-tips li { font-size: 12px; color: rgba(245,247,255,0.6); padding: 4px 0; padding-left: 16px; position: relative; }
+.format-tips li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-size: 11px; }
+.format-duration { display: inline-block; font-size: 11px; font-weight: 600; background: rgba(0,212,255,0.12); color: var(--cyan); padding: 3px 10px; border-radius: 20px; margin-top: 10px; }
+
+/* ── SPECS TABLE ── */
+.specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 40px; }
+.spec-row {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 20px;
+}
+.spec-key { font-size: 12px; color: var(--gray); flex-shrink: 0; width: 130px; padding-top: 1px; }
+.spec-val { font-size: 13px; font-weight: 500; color: var(--white); }
+
+/* ── ACTION PLAN ── */
+.action-list { display: flex; flex-direction: column; gap: 2px; }
+.action-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 120px 100px;
+  gap: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color .3s;
+}
+.action-row:hover { border-color: rgba(255,255,255,0.12); }
+.action-row.header { background: rgba(26,92,255,0.15); border-color: rgba(26,92,255,0.3); }
+.action-cell { padding: 14px 18px; font-size: 13px; }
+.action-row.header .action-cell { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); font-weight: 500; padding: 12px 18px; }
+.action-row:not(.header) .action-cell:first-child { font-weight: 500; color: var(--white); }
+.action-row:not(.header) .action-cell:nth-child(2) { color: rgba(245,247,255,0.75); }
+.action-row:not(.header) .action-cell:nth-child(3) { color: var(--gray); font-size: 12px; }
+.action-row:not(.header) .action-cell:nth-child(4) { display: flex; align-items: center; }
+.action-row:not(.header):nth-child(even) { background: rgba(255,255,255,0.02); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate { opacity: 0; }
+.animate.visible { animation: fadeUp 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+  text-align: center;
+}
+footer p { color: var(--gray); font-size: 13px; }
+footer a { color: var(--blue-light); text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  /* Layout */
+  .wrap { padding: 0 16px; }
+  section { padding: 56px 0; }
+
+  /* Nav */
+  .nav-inner { padding: 0 16px; }
+  .nav-links { display: none; }
+  .nav-badge { font-size: 10px; padding: 2px 8px; }
+
+  /* Hero */
+  .hero { padding: 110px 0 64px; }
+  .hero h1 { font-size: 38px; letter-spacing: -1.5px; }
+  .hero-sub { font-size: 15px; }
+  .hero-meta { gap: 20px; flex-wrap: wrap; }
+  .hero-meta-item { min-width: 45%; }
+
+  /* Section titles */
+  .section-title { font-size: 26px; }
+
+  /* Stats grid — 2 colunas no mobile */
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { padding: 18px 14px; border-radius: 12px; }
+  .stat-value { font-size: 26px; }
+  .stat-label { font-size: 10px; }
+  .stat-sub { font-size: 11px; }
+
+  /* Metric explain — 1 coluna */
+  .metric-explain { grid-template-columns: 1fr; }
+  .explain-card { padding: 20px; }
+  .bench-table th, .bench-table td { padding: 7px 8px; font-size: 12px; }
+
+  /* Funil — label menor */
+  .funnel-label-col { width: 100px; font-size: 11px; }
+  .funnel-drop { width: 54px; font-size: 11px; }
+  .funnel-bar-fill span { font-size: 12px; }
+
+  /* Checkout price compare */
+  .price-compare { flex-direction: column; align-items: stretch; gap: 12px; }
+  .price-arrow { transform: rotate(90deg); text-align: center; font-size: 20px; }
+  .price-box { min-width: unset; }
+  .price-box-value { font-size: 28px; }
+  .problem-box { padding: 24px 18px; }
+  .problem-box::before { font-size: 80px; top: -10px; right: 14px; }
+  .solution-box { padding: 20px 18px; }
+
+  /* Format cards — 1 coluna */
+  .formats-grid { grid-template-columns: 1fr; gap: 14px; }
+  .format-card { padding: 20px; }
+  .format-num { font-size: 36px; }
+
+  /* Specs grid — 1 coluna */
+  .specs-grid { grid-template-columns: 1fr; gap: 10px; }
+  .spec-row { padding: 12px 16px; }
+  .spec-key { width: 110px; font-size: 11px; }
+  .spec-val { font-size: 12px; }
+
+  /* Action plan — empilhar em cards */
+  .action-list { gap: 8px; }
+  .action-row { grid-template-columns: 1fr; border-radius: 12px; }
+  .action-row.header { display: none; }
+  .action-row:not(.header) { padding: 0; display: flex; flex-direction: column; }
+  .action-cell { padding: 10px 16px; font-size: 13px; }
+  .action-row:not(.header) .action-cell:first-child {
+    background: rgba(255,255,255,0.05);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cyan);
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .action-row:not(.header) .action-cell:nth-child(3) { color: var(--gray); font-size: 12px; }
+  .action-row:not(.header) .action-cell:nth-child(4) { padding-top: 0; padding-bottom: 12px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">OFF<span>SIDE</span></a>
+    <div class="nav-links">
+      <a href="#resultados">Resultados</a>
+      <a href="#metricas">Métricas</a>
+      <a href="#funil">Funil</a>
+      <a href="#checkout">Checkout</a>
+      <a href="#criativos">Criativos</a>
+      <a href="#plano">Plano</a>
+    </div>
+    <span class="nav-badge">Junho 2026</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-eyebrow animate">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Relatório de Marketing Digital</span>
+    </div>
+    <h1 class="animate delay-1">
+      Análise de<br>
+      <span class="line2">Desempenho</span> &<br>
+      Estratégia de <span class="accent">Crescimento</span>
+    </h1>
+    <p class="hero-sub animate delay-2">Visão completa das campanhas Meta Ads, diagnóstico do funil de conversão e plano estratégico para aumentar as vendas na Irlanda e Europa.</p>
+    <div class="hero-meta animate delay-3">
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Loja</div>
+        <div class="hero-meta-value">offsideoficial.com</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Mercado</div>
+        <div class="hero-meta-value">Irlanda → Europa</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Período</div>
+        <div class="hero-meta-value">Até Junho 2026</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Produto foco</div>
+        <div class="hero-meta-value">Camisetas Copa 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- RESULTADOS -->
+<section id="resultados">
+  <div class="wrap">
+    <div class="section-header animate">
+      <div class="section-num">01 — Resultados</div>
+      <h2 class="section-title">Dados das Campanhas</h2>
+      <p class="section-desc">Desempenho do Meta Ads com orçamento de €25/dia e um único criativo — vídeo orgânico da camiseta do Brasil.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card animate delay-1">
+        <div class="stat-label">Valor Investido</div>
+        <div class="stat-value">€168</div>
+        <div class="stat-sub">€25 / dia de orçamento</div>
+      </div>
+      <div class="stat-card animate delay-1">
+        <div class="stat-label">Alcance Único</div>
+        <div class="stat-value">8.567</div>
+        <div class="stat-sub">pessoas diferentes</div>
+      </div>
+      <div class="stat-card animate delay-2">
+        <div class="stat-label">Impressões</div>
+        <div class="stat-value">14.6k</div>
+        <div class="stat-sub">CPM de €11,50</div>
+      </div>
+      <div class="stat-card good animate delay-2">
+        <div class="stat-label">Cliques no Link</div>
+        <div class="stat-value good">276</div>
+        <div class="stat-sub">CTR de 1,89%</div>
+      </div>
+      <div class="stat-card warn animate delay-3">
+        <div class="stat-label">Adições ao Carrinho</div>
+        <div class="stat-value warn">20</div>
+        <div class="stat-sub">€8,41 por adição</div>
+      </div>
+      <div class="stat-card bad animate delay-3">
+        <div class="stat-label">Vendas via Anúncio</div>
+        <div class="stat-value bad">0</div>
+        <div class="stat-sub">problema identificado</div>
+      </div>
+      <div class="stat-card animate delay-4">
+        <div class="stat-label">Pedidos na Loja</div>
+        <div class="stat-value">4</div>
+        <div class="stat-sub">€149 em 488 sessões</div>
+      </div>
+      <div class="stat-card warn animate delay-4">
+        <div class="stat-label">Taxa de Conversão</div>
+        <div class="stat-value warn">0,61%</div>
+        <div class="stat-sub">meta: 1,5% a 3%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- MÉTRICAS -->
+<section id="metricas">
+  <div class="wrap">
+    <div class="section-header animate">
+      <div class="section-num">02 — Métricas</div>
+      <h2 class="section-title">Entendendo os Números</h2>
+      <p class="section-desc">O que cada métrica significa e como interpretar os resultados obtidos pela Offside.</p>
+    </div>
+
+    <div class="metric-explain">
+      <div class="explain-card animate delay-1">
+        <span class="explain-tag">CPM</span>
+        <h3>Custo por Mil Impressões</h3>
+        <p>Quanto pagamos para que o anúncio apareça 1.000 vezes na tela das pessoas. Mede o custo de visibilidade — quanto custa para aparecer.</p>
+        <table class="bench-table">
+          <tr><th>Faixa</th><th>Valor</th><th>Status</th></tr>
+          <tr><td>CPM ruim</td><td>Acima de €20</td><td><span class="tag tag-bad">Caro</span></td></tr>
+          <tr><td>CPM aceitável</td><td>€12 a €20</td><td><span class="tag tag-warn">Neutro</span></td></tr>
+          <tr><td>CPM bom</td><td>Abaixo de €12</td><td><span class="tag tag-good">Eficiente</span></td></tr>
+          <tr class="highlight"><td><strong>Offside agora</strong></td><td><strong>€11,50</strong></td><td><span class="tag tag-now">✓ Bom</span></td></tr>
+        </table>
+        <div class="explain-verdict good" style="margin-top:16px">
+          <div class="verdict-dot"></div>
+          <span class="verdict-text">Custo eficiente — abaixo do limite de €12,00</span>
+        </div>
+      </div>
+
+      <div class="explain-card animate delay-2">
+        <span class="explain-tag">CTR</span>
+        <h3>Taxa de Cliques no Link</h3>
+        <p>Porcentagem de pessoas que viram o anúncio e clicaram. Mede o poder de atração do criativo. Fórmula: <strong style="color:var(--white)">CTR = cliques ÷ impressões × 100</strong></p>
+        <p style="font-size:13px;margin-top:8px;">No nosso caso: 276 ÷ 14.631 × 100 = <strong style="color:var(--cyan)">1,89%</strong></p>
+        <table class="bench-table" style="margin-top:10px">
+          <tr><th>Faixa</th><th>CTR</th><th>Status</th></tr>
+          <tr><td>CTR ruim</td><td>Abaixo de 0,5%</td><td><span class="tag tag-bad">Fraco</span></td></tr>
+          <tr><td>CTR mediano</td><td>0,5% a 1,0%</td><td><span class="tag tag-warn">Neutro</span></td></tr>
+          <tr><td>CTR bom</td><td>1,0% a 2,0%</td><td><span class="tag tag-good">Bom</span></td></tr>
+          <tr><td>CTR excelente</td><td>Acima de 2,0%</td><td><span class="tag tag-blue">Excelente</span></td></tr>
+          <tr class="highlight"><td><strong>Offside agora</strong></td><td><strong>1,89%</strong></td><td><span class="tag tag-now">✓ Bom</span></td></tr>
+        </table>
+        <div class="explain-verdict good" style="margin-top:16px">
+          <div class="verdict-dot"></div>
+          <span class="verdict-text">O vídeo está atraindo as pessoas certas — quase excelente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FUNIL -->
+<section id="funil">
+  <div class="wrap">
+    <div class="section-header animate">
+      <div class="section-num">03 — Funil</div>
+      <h2 class="section-title">Onde Está o Problema</h2>
+      <p class="section-desc">O funil mostra a jornada do cliente desde ver o anúncio até finalizar a compra. A ruptura é clara.</p>
+    </div>
+
+    <div class="funnel animate">
+      <div class="funnel-step">
+        <div class="funnel-bar-row">
+          <div class="funnel-label-col">Alcance do anúncio</div>
+          <div class="funnel-bar-col">
+            <div class="funnel-bar-bg">
+              <div class="funnel-bar-fill" id="bar1" style="width:0%; background:linear-gradient(90deg,#1A5CFF,#4D80FF);">
+                <span>8.567 pessoas</span>
+              </div>
+            </div>
+          </div>
+          <div class="funnel-drop">—</div>
+        </div>
+      </div>
+      <div class="funnel-connector"><div class="connector-line"></div></div>
+      <div class="funnel-step">
+        <div class="funnel-bar-row">
+          <div class="funnel-label-col">Cliques no link</div>
+          <div class="funnel-bar-col">
+            <div class="funnel-bar-bg">
+              <div class="funnel-bar-fill" id="bar2" style="width:0%; background:linear-gradient(90deg,#00D4FF,#1A5CFF);">
+                <span>276</span>
+              </div>
+            </div>
+          </div>
+          <div class="funnel-drop">↓ 96,8%</div>
+        </div>
+      </div>
+      <div class="funnel-connector"><div class="connector-line"></div></div>
+      <div class="funnel-step">
+        <div class="funnel-bar-row">
+          <div class="funnel-label-col">Visitas ao produto</div>
+          <div class="funnel-bar-col">
+            <div class="funnel-bar-bg">
+              <div class="funnel-bar-fill" id="bar3" style="width:0%; background:linear-gradient(90deg,#00E5A0,#00D4FF);">
+                <span>226</span>
+              </div>
+            </div>
+          </div>
+          <div class="funnel-drop">drop-off</div>
+        </div>
+      </div>
+      <div class="funnel-connector"><div class="connector-line"></div></div>
+      <div class="funnel-step">
+        <div class="funnel-bar-row">
+          <div class="funnel-label-col">Adições ao carrinho</div>
+          <div class="funnel-bar-col">
+            <div class="funnel-bar-bg">
+              <div class="funnel-bar-fill" id="bar4" style="width:0%; background:linear-gradient(90deg,#FFB800,#FF8C00);">
+                <span>20</span>
+              </div>
+            </div>
+          </div>
+          <div class="funnel-drop bad">↓ 91%</div>
+        </div>
+      </div>
+      <div class="funnel-connector"><div class="connector-line"></div></div>
+      <div class="funnel-step">
+        <div class="funnel-bar-row">
+          <div class="funnel-label-col">Compras finalizadas</div>
+          <div class="funnel-bar-col">
+            <div class="funnel-bar-bg">
+              <div class="funnel-bar-fill" id="bar5" style="width:0%; background:linear-gradient(90deg,#FF4057,#FF6B7A);">
+                <span>0</span>
+              </div>
+            </div>
+          </div>
+          <div class="funnel-drop bad">↓ 100%</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; background:rgba(255,64,87,0.06); border:1px solid rgba(255,64,87,0.2); border-radius:14px; padding:22px 24px;">
+      <p style="color:rgba(245,247,255,0.85); font-size:14px; line-height:1.7;"><strong style="color:var(--red)">Conclusão:</strong> O anúncio está funcionando bem — atraiu 276 cliques e 20 pessoas chegaram ao carrinho. O problema não é o criativo, não é o produto. É o que acontece na hora de pagar. Causa identificada — veja a seção seguinte.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CHECKOUT -->
+<section id="checkout">
+  <div class="wrap">
+    <div class="section-header animate">
+      <div class="section-num">04 — Checkout</div>
+      <h2 class="section-title">O Problema & A Solução</h2>
+      <p class="section-desc">Identificamos a causa principal do abandono de carrinho e o plano de correção.</p>
+    </div>
+
+    <div class="problem-box animate">
+      <h3>Divergência de Preço no Checkout</h3>
+      <p>O cliente vê a camiseta por €29,99 na loja. Quando chega ao checkout, o preço sobe para €35,09 — um aumento de €5,10 que aparece como "Estimated taxes". Para o cliente, parece que está sendo enganado. A reação natural é abandonar a compra.</p>
+      <div class="price-compare">
+        <div class="price-box before">
+          <div class="price-box-label">Página do produto</div>
+          <div class="price-box-value">€29,99</div>
+        </div>
+        <div class="price-arrow">→</div>
+        <div class="price-box after">
+          <div class="price-box-label">Checkout (situação atual)</div>
+          <div class="price-box-value">€35,09</div>
+          <div style="font-size:12px;color:rgba(255,64,87,0.8);margin-top:6px;">+ €5,10 de imposto (VAT 23%)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="solution-box animate delay-1">
+      <h3>Por que acontece e como corrigir</h3>
+      <p>Na Irlanda e em toda a União Europeia, o VAT (equivalente ao IVA) para vestuário é de 23%. A lei europeia exige que o preço exibido ao consumidor já inclua o imposto. A correção é feita nas configurações da loja: ativar "Include tax in product prices". Com isso, o cliente vê €29,99 na loja e paga €29,99 no checkout — sem surpresas.</p>
+      <div class="price-compare" style="margin-top:20px;margin-bottom:0;">
+        <div class="price-box before">
+          <div class="price-box-label">Página do produto</div>
+          <div class="price-box-value" style="color:var(--white)">€29,99</div>
+        </div>
+        <div class="price-arrow">→</div>
+        <div class="price-box fixed">
+          <div class="price-box-label">Checkout (após correção)</div>
+          <div class="price-box-value">€29,99</div>
+          <div style="font-size:12px;color:var(--green);margin-top:6px;">✓ VAT já incluído</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="solution-box animate delay-2" style="background:rgba(26,92,255,0.06);border-color:rgba(26,92,255,0.2)">
+      <h3 style="color:var(--blue-light)">Prazo de devolução — conformidade com a lei europeia</h3>
+      <p>O prazo de devolução será atualizado para 14 dias, em conformidade com o direito do consumidor europeu. Isso aumenta a confiança do cliente e protege a loja legalmente. Consumidores europeus esperam esse padrão e a sua ausência gera desconfiança na hora de comprar.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CRIATIVOS -->
+<section id="criativos">
+  <div class="wrap">
+    <div class="section-header animate">
+      <div class="section-num">05 — Criativos</div>
+      <h2 class="section-title">O Que Produzir e Como</h2>
+      <p class="section-desc">Guia prático para a equipe na Irlanda. Com mais variações, o algoritmo do Meta encontra o criativo que mais converte e direciona o orçamento para ele.</p>
+    </div>
+
+    <div style="background:rgba(255,184,0,0.06);border:1px solid rgba(255,184,0,0.2);border-radius:14px;padding:20px 24px;margin-bottom:36px;" class="animate">
+      <p style="font-size:14px;color:rgba(245,247,255,0.8);line-height:1.7;"><strong style="color:var(--amber)">Por que variedade é essencial:</strong> Toda a campanha rodou com 1 único vídeo. Sem variações, não temos como saber qual estilo converte melhor e o algoritmo não consegue otimizar. Meta: mínimo de <strong style="color:var(--white)">3 a 5 criativos diferentes</strong> rodando ao mesmo tempo.</p>
+    </div>
+
+    <div class="formats-grid">
+      <div class="format-card animate delay-1">
+        <div class="format-num">01</div>
+        <div class="format-icon">📦</div>
+        <h3>Unboxing / Chegada</h3>
+        <p>Alguém recebe e abre o pacote ao vivo. É o formato que mais gera confiança — prova que o produto é real e a entrega funciona.</p>
+        <ul class="format-tips">
+          <li>Abrir o pacote na câmera</li>
+          <li>Vestir pela primeira vez</li>
+          <li>Mostrar detalhes: costura, estampa</li>
+          <li>Reação genuína e natural</li>
+        </ul>
+        <span class="format-duration">20 a 40 segundos</span>
+      </div>
+      <div class="format-card animate delay-2">
+        <div class="format-num">02</div>
+        <div class="format-icon">⚽</div>
+        <h3>Prova ao Vivo</h3>
+        <p>Usando a camiseta no cotidiano — assistindo jogo, na rua, com amigos. Gera identificação e mostra o produto em uso real.</p>
+        <ul class="format-tips">
+          <li>Cenas curtas e dinâmicas</li>
+          <li>Múltiplos ângulos</li>
+          <li>Pode mostrar mais de uma camiseta</li>
+          <li>Música animada de fundo</li>
+        </ul>
+        <span class="format-duration">15 a 25 segundos</span>
+      </div>
+      <div class="format-card animate delay-3">
+        <div class="format-num">03</div>
+        <div class="format-icon">🇧🇷</div>
+        <h3>Apelo Emocional</h3>
+        <p>Brasileiro na Irlanda, saudade do Brasil, orgulho de torcer pela Seleção longe de casa. Cria conexão emocional forte com o público.</p>
+        <ul class="format-tips">
+          <li>Dia a dia do brasileiro na Irlanda</li>
+          <li>Mencionar Copa do Mundo 2026</li>
+          <li>Frase de impacto nos 3 primeiros seg.</li>
+          <li>Tom pessoal e autêntico</li>
+        </ul>
+        <span class="format-duration">20 a 35 segundos</span>
+      </div>
+      <div class="format-card animate delay-4">
+        <div class="format-num">04</div>
+        <div class="format-icon">💶</div>
+        <h3>Preço e Proposta</h3>
+        <p>Direto ao ponto: mostrar a camiseta e o preço. Funciona muito bem para quem já conhece o produto e está na fase de decisão.</p>
+        <ul class="format-tips">
+          <li>Abrir com o preço em destaque</li>
+          <li>Mencionar frete grátis para Europa</li>
+          <li>Chamada clara: "Compre agora"</li>
+          <li>Produto com boa qualidade de imagem</li>
+        </ul>
+        <span class="format-duration">10 a 20 segundos</span>
+      </div>
+    </div>
+
+    <div class="section-header animate" style="margin-top:48px;margin-bottom:28px;">
+      <h3 class="section-title" style="font-size:24px;">Especificações Técnicas</h3>
+      <p class="section-desc">Para garantir que os vídeos rodem perfeitamente no Instagram e Facebook.</p>
+    </div>
+    <div class="specs-grid animate">
+      <div class="spec-row"><span class="spec-key">Formato</span><span class="spec-val">Vertical — 9:16 (Stories e Reels)</span></div>
+      <div class="spec-row"><span class="spec-key">Resolução</span><span class="spec-val">1080 × 1920 px (Full HD)</span></div>
+      <div class="spec-row"><span class="spec-key">Duração</span><span class="spec-val">15 a 40 segundos</span></div>
+      <div class="spec-row"><span class="spec-key">Primeiros 3 seg.</span><span class="spec-val">Produto visível imediatamente</span></div>
+      <div class="spec-row"><span class="spec-key">Áudio</span><span class="spec-val">Com som ou música — evitar silêncio</span></div>
+      <div class="spec-row"><span class="spec-key">Legenda</span><span class="spec-val">Adicionar texto na tela (muitos assistem sem som)</span></div>
+      <div class="spec-row"><span class="spec-key">Mínimo por sessão</span><span class="spec-val">3 vídeos diferentes por gravação</span></div>
+      <div class="spec-row"><span class="spec-key">Iluminação</span><span class="spec-val">Luz natural do dia — evitar ambiente escuro</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PLANO DE AÇÃO -->
+<section id="plano">
+  <div class="wrap">
+    <div class="section-header animate">
+      <div class="section-num">06 — Plano de Ação</div>
+      <h2 class="section-title">Próximos Passos</h2>
+      <p class="section-desc">Cronograma de ações priorizadas para aumentar as vendas nos próximos meses.</p>
+    </div>
+
+    <div class="action-list animate">
+      <div class="action-row header">
+        <div class="action-cell">Prazo</div>
+        <div class="action-cell">Ação</div>
+        <div class="action-cell">Responsável</div>
+        <div class="action-cell">Prioridade</div>
+      </div>
+      <div class="action-row">
+        <div class="action-cell">Próxima semana</div>
+        <div class="action-cell">Corrigir o preço com VAT incluído no checkout da loja</div>
+        <div class="action-cell">Gestão</div>
+        <div class="action-cell"><span class="tag tag-bad">Alta</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-cell">Próxima semana</div>
+        <div class="action-cell">Atualizar prazo de devolução para 14 dias (lei europeia)</div>
+        <div class="action-cell">Gestão</div>
+        <div class="action-cell"><span class="tag tag-bad">Alta</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-cell">Este fim de semana</div>
+        <div class="action-cell">Gravação de novos vídeos: unboxing, prova ao vivo, apelo emocional Copa 2026</div>
+        <div class="action-cell">Equipe Irlanda</div>
+        <div class="action-cell"><span class="tag tag-bad">Alta</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-cell">Próxima semana</div>
+        <div class="action-cell">Subir variações de anúncio no Meta Ads e iniciar Teste A/B</div>
+        <div class="action-cell">Gestão</div>
+        <div class="action-cell"><span class="tag tag-warn">Alta</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-cell">Próxima semana</div>
+        <div class="action-cell">Ativar e-mail automático de recuperação de carrinho abandonado</div>
+        <div class="action-cell">Gestão</div>
+        <div class="action-cell"><span class="tag tag-warn">Alta</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-cell">Próxima semana</div>
+        <div class="action-cell">Adicionar avaliações e reviews de clientes na loja</div>
+        <div class="action-cell">Equipe Irlanda</div>
+        <div class="action-cell"><span class="tag tag-blue">Média</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-cell">Junho / Julho</div>
+        <div class="action-cell">Criar públicos segmentados de remarketing no Meta Ads</div>
+        <div class="action-cell">Gestão</div>
+        <div class="action-cell"><span class="tag tag-blue">Média</span></div>
+      </div>
+      <div class="action-row">
+        <div class="action-cell">Julho / Agosto</div>
+        <div class="action-cell">Avaliação de resultados e expansão para UK, Portugal e Espanha</div>
+        <div class="action-cell">Gestão</div>
+        <div class="action-cell"><span class="tag tag-blue">Média</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<footer>
+  <div class="wrap">
+    <p style="margin-bottom:8px;"><strong style="font-family:'Syne',sans-serif;font-size:16px;color:var(--white);">OFFSIDE</strong></p>
+    <p><a href="https://offsideoficial.com">offsideoficial.com</a> · Instagram: <a href="https://instagram.com/offside.ie">@offside.ie</a> · <a href="mailto:offside.ct@gmail.com">offside.ct@gmail.com</a></p>
+    <p style="margin-top:12px;font-size:12px;">Relatório de Marketing Digital — Junho 2026</p>
+  </div>
+</footer>
+
+<script>
+// Intersection Observer para animações
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// Animação do funil
+const funnelData = [
+  { id: 'bar1', pct: 100 },
+  { id: 'bar2', pct: 3.2 },
+  { id: 'bar3', pct: 2.6 },
+  { id: 'bar4', pct: 0.23 },
+  { id: 'bar5', pct: 0.05 },
+];
+const funnelObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      funnelData.forEach((item, i) => {
+        setTimeout(() => {
+          const el = document.getElementById(item.id);
+          if (el) el.style.width = Math.max(item.pct, item.id === 'bar5' ? 1.5 : 0) + '%';
+        }, i * 180);
+      });
+      funnelObserver.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+const funnelEl = document.querySelector('.funnel');
+if (funnelEl) funnelObserver.observe(funnelEl);
+</script>
+</body>
+</html>
