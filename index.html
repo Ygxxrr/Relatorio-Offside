@@ -448,10 +448,10 @@ footer a { color: var(--blue-light); text-decoration: none; }
         <div class="stat-value warn">20</div>
         <div class="stat-sub">€8,41 por adição</div>
       </div>
-      <div class="stat-card bad animate delay-3">
-        <div class="stat-label">Vendas via Anúncio</div>
-        <div class="stat-value bad">0</div>
-        <div class="stat-sub">problema identificado</div>
+      <div class="stat-card good animate delay-3">
+        <div class="stat-label">Vendas via Anúncio (estimado)</div>
+        <div class="stat-value good">3</div>
+        <div class="stat-sub">3 pedidos — € 119,97</div>
       </div>
       <div class="stat-card animate delay-4">
         <div class="stat-label">Pedidos na Loja</div>
@@ -592,17 +592,17 @@ footer a { color: var(--blue-light); text-decoration: none; }
           <div class="funnel-bar-col">
             <div class="funnel-bar-bg">
               <div class="funnel-bar-fill" id="bar5" style="width:0%; background:linear-gradient(90deg,#FF4057,#FF6B7A);">
-                <span>0</span>
+                <span>3</span>
               </div>
             </div>
           </div>
-          <div class="funnel-drop bad">↓ 100%</div>
+          <div class="funnel-drop bad">↓ 90%</div>
         </div>
       </div>
     </div>
 
     <div style="margin-top:32px; background:rgba(255,64,87,0.06); border:1px solid rgba(255,64,87,0.2); border-radius:14px; padding:22px 24px;">
-      <p style="color:rgba(245,247,255,0.85); font-size:14px; line-height:1.7;"><strong style="color:var(--red)">Conclusão:</strong> O anúncio está funcionando bem — atraiu 276 cliques e 20 pessoas chegaram ao carrinho. O problema não é o criativo, não é o produto. É o que acontece na hora de pagar. Causa identificada — veja a seção seguinte.</p>
+      <p style="color:rgba(245,247,255,0.85); font-size:14px; line-height:1.7;"><strong style="color:var(--red)">Conclusão:</strong> O anúncio está funcionando — atraiu 276 cliques, 20 adições ao carrinho e pelo menos 2 vendas confirmadas (o Meta Ads não rastreia 100% das conversões por limitações de pixel no iOS e navegadores privados). A causa do baixo volume de conversão foi identificada — veja a seção seguinte.</p>
     </div>
   </div>
 </section>
@@ -839,7 +839,7 @@ const funnelData = [
   { id: 'bar2', pct: 3.2 },
   { id: 'bar3', pct: 2.6 },
   { id: 'bar4', pct: 0.23 },
-  { id: 'bar5', pct: 0.05 },
+  { id: 'bar5', pct: 1.2 },
 ];
 const funnelObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
